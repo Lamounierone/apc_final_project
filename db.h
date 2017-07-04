@@ -76,8 +76,10 @@ int verificaUser(sqlite3* db, char* uuser)
 	
 	if (step == SQLITE_ROW){
 		printf("Usuario encontrado");
+		return 0;
 	} else {
 		printf("Usuario nao encontrado");
+		return 1;
 	}
 	sqlite3_finalize(res);
 }

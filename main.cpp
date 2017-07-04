@@ -42,27 +42,17 @@ int main()
 	readimagefile("LOGIN.jpg", 20, 20, RESX, RESY);
 			
 	escreve(usuario);
-	puts(usuario);
-	//puts(user);
-	verificacao=strcmp(usuario,user);
+	verificacao = verificaUser(db, usuario);
+		
+	if(verificacao == 0){
+		readimagefile("entrar.jpg",532,503,696,444);
+		click();
+		window();
 	
-	if(verificacao==0)
-	{
-	readimagefile("entrar.jpg",532,503,696,444);
-	click();
-	window();
-	
-	readimagefile("Lista opções.jpg", 20, 20, RESX, RESY);
-	
-	
-	
+		readimagefile("Lista opções.jpg", 20, 20, RESX, RESY);
+	} else {
+		readimagefile("Cadastro.jpg", 20, 20, RESX, RESY);
 	}
-	else
-	{
-	readimagefile("Cadastro.jpg", 20, 20, RESX, RESY);
-	}
-	
-	
 	
 	system("PAUSE");
 	return 0;
