@@ -2,9 +2,17 @@
 
 #define DB "unb.db"
 
+struct aluno {
+	char nome[100];
+	char apelido[20];
+	int idade;
+	char matricula[15];
+};
+
 static int openDb(sqlite3*);
 static int createTables(sqlite3*);
 static int verificaUser(sqlite3*, char*);
+static int insereUser(sqlite3*, struct aluno*);
 static int gCallback(void*, int, char**, char**);
 
 
@@ -32,7 +40,7 @@ static int createTables(sqlite3* db)
 	const char* sql;
 	const char* sql_tabela_cursos;
 
-	sql = "CREATE TABLE alunos (ID INT PRIMARY KEY NOT NULL, nome TEXT NOT NULL, apelido TEXT NOT NULL, idade int NOT NULL, matricula int NOT NULL);";
+	sql = "CREATE TABLE alunos (ID INT PRIMARY KEY NOT NULL, nome TEXT NOT NULL, apelido TEXT UNIQUE NOT NULL, idade int NOT NULL, matricula int NOT NULL);";
 
 	sql_tabela_cursos = "CREATE TABLE disciplinas (ID INT PRIMARY KEY NOT NULL, semestre INT NOT NULL, nome TEXT NOT NULL, cod_unb TEXT NOT NULL);";
 	
@@ -55,7 +63,7 @@ static int createTables(sqlite3* db)
 	}
 }
 
-int verificaUser(sqlite3* db, char* uuser)
+int verificaUser(sqlite3* db, char* user)
 {		
 	int rc;
 	sqlite3_stmt *res;
@@ -67,7 +75,7 @@ int verificaUser(sqlite3* db, char* uuser)
 	
 	rc = sqlite3_prepare_v2(db, sql, -1, &res, 0);
 	if( rc == SQLITE_OK ){
-		sqlite3_bind_text(res, 1, uuser, -1, 0);
+		sqlite3_bind_text(res, 1, user, -1, 0);
 	} else {
 		fprintf(stderr, "SQL error: %s\n", sqlite3_errmsg(db));
 	}

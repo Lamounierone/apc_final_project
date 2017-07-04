@@ -7,7 +7,6 @@
 
 #define RESX 1200
 #define RESY 710
-#define user "calouro"
 
 void window(void);
 void escreve(char*);
@@ -17,7 +16,6 @@ int main()
 {
 	int x=0, y=0;
 	int verificacao;
-	char uuser[12];
 	char usuario[10];
 	int i=0;
 	int rc;
